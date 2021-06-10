@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 module.exports.register = async (req, res) => {
   const { username, password, prePassword, age, male, number, tag_id } = req.body
   if (password !== prePassword) {
-    console.log(password)
+    console.log("Some field is empty")
     res.sendStatus(400)
     return
   }

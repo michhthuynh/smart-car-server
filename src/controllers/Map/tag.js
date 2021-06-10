@@ -1,21 +1,33 @@
-const TagModel = require("../../models/Tag")
+
+const UserModel = require("../../models/User")
 
 module.exports.postTag = async (req, res) => {
   const id = req.body.id
-  const querySearch = await TagModel.find({ tag_id: id })
-  console.log(querySearch[0])
-  if (querySearch[0] !== undefined) {
-    // TODO update status user tag
-    res.send("OK")
-    return
+  const result = await UserModel.find({ tag_id: id })
+  if (result[0] !== undefined) {
+    // TODO: update status user tag
+    const { number } = result[0]
+    // Check number
+    if (number <= 0) {
+      res.status(400).json({
+        msg: "Tag invalid. Please renew tag"
+      })
+      return
+    } else {
+      const result = await UserModel.updateOne({ tag_id: id }, { number: number - 1 })
+      if (result.ok === 1) {
+        console.log("Update successfully")
+        res.send("OK")
+        return
+      } else {
+        console.log("Update failed!!!")
+        res.sendStatus(503)
+      }
+    }
   } else {
-    // create tag id
-    const data = await TagModel.create({
-      tag_id: id
+    res.status(400).json({
+      msg: "Tag invalid"
     })
-    console.log(data)
-    res.send('OK')
-    return
   }
 }
 
@@ -26,4 +38,14 @@ module.exports.getTag = async (req, res) => {
       [218, 215, 14, 20, 23]
     ]
   })
+}
+
+module.exports.postRegisterTag = async (req, res) => {
+  // TODO: register tag for user
+  res.send('OK')
+}
+
+module.exports.postRenewTag = async (req, res) => {
+  // TODO: renew number of user tag
+  res.send('OK')
 }
