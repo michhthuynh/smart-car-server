@@ -3,7 +3,7 @@ const UserModel = require('../../models/User')
 const jwt = require('jsonwebtoken')
 
 module.exports.register = async (req, res) => {
-  const { username, password, prePassword, age, male, balance } = req.body
+  const { username, password, prePassword, age, male, number, tag_id } = req.body
   if (password !== prePassword) {
     console.log(password)
     res.sendStatus(400)
@@ -25,7 +25,8 @@ module.exports.register = async (req, res) => {
       password: hashPassword,
       age,
       male,
-      balance
+      number,
+      tag_id,
     })
 
     jwt.sign({ username }, 'secret', { expiresIn: '24h' }, (err, token) => {

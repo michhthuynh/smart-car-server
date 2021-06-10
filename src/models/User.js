@@ -16,8 +16,12 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  balance: {
+  number: {
     type: Number,
+    required: true
+  },
+  tag_id: {
+    type: String,
     required: true
   },
 })
