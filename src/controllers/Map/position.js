@@ -14,3 +14,8 @@ module.exports.postPosition = async (req, res) => {
     })
   }
 }
+
+module.exports.getPosition = async (req, res) => {
+  const result = await PositionModel.find({ tag: '1234' })
+  res.json(result[0])
+}
