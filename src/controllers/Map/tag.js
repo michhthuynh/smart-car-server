@@ -1,7 +1,7 @@
 
 const { sendMail } = require("../../configs/mailSetup")
 const UserModel = require("../../models/User")
-const moment = require('moment')
+const moment = require('moment-timezone');
 moment.locale('vi')
 
 module.exports.postTag = async (req, res) => {
@@ -48,8 +48,8 @@ module.exports.postTag = async (req, res) => {
 module.exports.getTag = async (req, res) => {
   res.json({
     "ids": [
-      "[234, 130, 227, 20, 159]",
-      "[218, 215, 14, 20, 23]"
+      [234, 130, 227, 20, 159],
+      [218, 215, 14, 20, 23]
     ]
   })
 }
