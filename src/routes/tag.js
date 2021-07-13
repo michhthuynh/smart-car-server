@@ -4,8 +4,6 @@ const tagRoutes = express.Router()
 
 tagRoutes
   .post('/', postTag)
-  .post('/user/register', postRegisterTag)
-  .post('/renew', postRenewTag)
   .get('/', getTag)
 
 module.exports = tagRoutes
