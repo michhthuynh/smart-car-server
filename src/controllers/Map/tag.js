@@ -39,6 +39,7 @@ module.exports.postTag = async (req, res) => {
       }
     }
   } else {
+    console.log("Request body: ", req.body)
     console.log('Tag invalid')
     res.status(400).json({
       msg: "Tag invalid"
