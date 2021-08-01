@@ -3,7 +3,7 @@ const UserModel = require('../../models/User')
 const jwt = require('jsonwebtoken')
 
 module.exports.register = async (req, res) => {
-  const { username, password, prePassword, age, male, number, tag_id } = req.body
+  const { username, password, prePassword, age, male, number, tag_id, fullName } = req.body
   if (password !== prePassword) {
     console.log("Some field is empty")
     res.sendStatus(400)
@@ -21,6 +21,7 @@ module.exports.register = async (req, res) => {
   try {
     const hashPassword = await bcrypt.hash(password, 10)
     const user = await UserModel.create({
+      fullName,
       username,
       password: hashPassword,
       age,
@@ -38,12 +39,16 @@ module.exports.register = async (req, res) => {
       console.log("Create token: ", user.id)
       res.json({
         id: user.id,
+        fullName: fullName,
+        email: username,
+        male: male ? 'Male' : 'Female',
         token
       })
       return
     })
 
   } catch (error) {
+    console.log(error)
     res.status(400).json({
       message: 'Create account failed'
     })

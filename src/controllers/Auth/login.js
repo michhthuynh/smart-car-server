@@ -20,7 +20,9 @@ module.exports.loginPost = async (req, res) => {
           return
         }
         res.status(200).json({
-          id: user[0].username,
+          email: user[0].username,
+          fullName: user[0]['fullName'],
+          male: user[0]['male'] ? 'Male' : 'Female',
           token
         })
         return
