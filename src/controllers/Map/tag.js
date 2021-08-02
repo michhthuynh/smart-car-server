@@ -63,12 +63,20 @@ module.exports.getTag = async (req, res) => {
 }
 
 
-// TODO: register tag
 module.exports.registerTag = async (req, res) => {
-  const { username, tag_id } = req.body
+  const arrayValid = ["366556677", "366556688", "366556699"]
+  const { username, tag_id, series } = req.body
   const query = await TagModel.findOne({ tag_id: tag_id })
-  console.log(query)
-  const result = await UserModel.updateOne({ username: username }, { tag_id: tag_id })
+  if (!query) {
+    res.sendStatus(400)
+    return
+  }
+  if (!arrayValid.includes(series)) {
+    res.sendStatus(400)
+    return
+  }
+  const user = await UserModel.find({ username })
+  const result = await UserModel.updateOne({ username: username }, { tag_id: tag_id, number: user[0].number + 5 })
   if (result.ok === 1) {
     console.log("Register successfully")
     res.send("OK")
@@ -82,4 +90,17 @@ module.exports.registerTag = async (req, res) => {
 
 }
 
-// TODO: renew tag
+
+module.exports.addTag = async (req, res) => {
+  const { tag_id } = req.body
+  const query = await TagModel.findOne({ tag_id })
+
+  if (!query) {
+    await TagModel.create({
+      tag_id
+    })
+    res.send("ok")
+    return
+  }
+  res.sendStatus(409)
+}

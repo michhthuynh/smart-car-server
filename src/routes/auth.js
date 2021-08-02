@@ -1,4 +1,5 @@
 const express = require('express')
+const getNumber = require('../controllers/Auth/getNumber')
 const { loginPost } = require('../controllers/Auth/login')
 const { register } = require('../controllers/Auth/register')
 const { remove } = require('../controllers/Auth/remove')
@@ -14,6 +15,7 @@ authRoutes
   .get('/check', getToken, verifyToken, (req, res) => {
     res.sendStatus(200)
   })
+  .post('/number', getNumber)
   .delete('/remove', remove)
 
 module.exports = authRoutes
