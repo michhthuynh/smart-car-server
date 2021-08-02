@@ -21,6 +21,8 @@ module.exports.loginPost = async (req, res) => {
         }
         res.status(200).json({
           email: user[0].username,
+          age: user[0].age,
+          number: user[0].number,
           fullName: user[0]['fullName'],
           male: user[0]['male'] ? 'Male' : 'Female',
           token

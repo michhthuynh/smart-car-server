@@ -40,6 +40,8 @@ module.exports.register = async (req, res) => {
       res.json({
         id: user.id,
         fullName: fullName,
+        age: age,
+        number: number,
         email: username,
         male: male ? 'Male' : 'Female',
         token

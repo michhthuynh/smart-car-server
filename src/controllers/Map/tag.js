@@ -2,6 +2,7 @@
 const { sendMail } = require("../../configs/mailSetup")
 const UserModel = require("../../models/User")
 const moment = require('moment-timezone');
+const TagModel = require("../../models/Tag");
 moment.locale('vi')
 
 module.exports.postTag = async (req, res) => {
@@ -60,3 +61,25 @@ module.exports.getTag = async (req, res) => {
     ids: ids
   })
 }
+
+
+// TODO: register tag
+module.exports.registerTag = async (req, res) => {
+  const { username, tag_id } = req.body
+  const query = await TagModel.findOne({ tag_id: tag_id })
+  console.log(query)
+  const result = await UserModel.updateOne({ username: username }, { tag_id: tag_id })
+  if (result.ok === 1) {
+    console.log("Register successfully")
+    res.send("OK")
+    return
+  } else {
+    console.log("Cannot connect mongodb...")
+    res.status(503).json({
+      msg: "Cannot update Register..."
+    })
+  }
+
+}
+
+// TODO: renew tag
