@@ -23,7 +23,6 @@ module.exports.postTag = async (req, res) => {
         try {
           sendMail({
             from: "payment of transition<smart.car.bk@gmail.com>",
-            // to: 'huynhhoang.st.97@gmail.com',
             to: "1512836@hcmut.edu.vn",
             subject: `Hóa đơn thanh toán #${Math.round(Math.random() * 10000000)}`,
             html: `<h3>Hóa đơn xe buýt số 15: BX. Miền Tây đến BX.An Sương</h3><h4>Giá vé: 7000đ/lượt</h4><h4>Ngày xuất hóa đơn: ${moment().format('LLL')}</h4><h4>Số lượt còn lại: ${number - 1}</h4>`
